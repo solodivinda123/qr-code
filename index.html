@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abraham L.B.K - Digital Business Card</title>
+  <!-- Font Awesome 6 Free -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #8B0000;
+      --secondary: #B22222;
+      --light: #fff;
+      --dark: #1a1a1a;
+      --gradient: linear-gradient(135deg, #8B0000 0%, #4B0000 100%);
+      --shadow: 0 8px 32px rgba(0,0,0,0.1);
+      --radius: 20px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --glass: rgba(255,255,255,0.15);
+      --glass-border: rgba(255,255,255,0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+      color: var(--dark);
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      text-align: center;
+      padding: 25px;
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border: 6px double var(--secondary); /* Changed from 4px solid to 6px double */
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease;
+      filter: brightness(1) contrast(1.05);
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05) rotate(2deg);
+      filter: brightness(1.1) contrast(1.1);
+    }
+
+    .name-title {
+      background: var(--gradient);
+      color: white;
+      padding: 25px 30px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      margin: -25px -25px 30px -25px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .title {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.4;
+      text-transform: uppercase;
+      opacity: 0.95;
+    }
+
+    .company {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin: 20px 0;
+      letter-spacing: 1px;
+    }
+
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 20px 0;
+    }
+
+    .icon-btn {
+      width: 65px;
+      height: 65px;
+      border: 2px solid var(--secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--secondary);
+      font-size: 1.6rem;
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--secondary);
+      transition: 0.4s;
+      z-index: -1;
+    }
+
+    .icon-btn:hover::before {
+      left: 0;
+    }
+
+    .icon-btn:hover {
+      color: white;
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 6px 16px rgba(139, 0, 0, 0.3);
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin: 15px 0;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-decoration: none;
+      text-align: center;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--secondary);
+      transition: 0.4s;
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      left: 0;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #700000;
+      transform: translateY(-3px);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(139, 0, 0, 0.05);
+      transform: translateY(-3px);
+      color: var(--secondary);
+    }
+
+    .share-icon {
+      width: 20px;
+      height: 20px;
+      opacity: 0.8;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      transition: var(--transition);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .social-btn:hover {
+      background: var(--secondary);
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 16px rgba(139, 0, 0, 0.3);
+    }
+
+    .social-btn i {
+      font-size: 1.2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .name { font-size: 1.8rem; }
+      .company { font-size: 1.5rem; }
+      .profile-pic { width: 140px; height: 140px; }
+      .contact-icons { gap: 15px; }
+      .icon-btn { width: 55px; height: 55px; font-size: 1.4rem; }
+      .btn { padding: 12px 15px; font-size: 0.95rem; }
+      .social-btn { width: 50px; height: 50px; font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- ⬇️ REPLACE WITH YOUR REAL IMAGE URL OR BASE64 ⬇️ -->
+<a href="https://ibb.co/STDrjWR">
+  <img src="abraham.jpg" alt="abraham" border="12" class="profile-pic" id="profilePic">
+</a>
+
+    <div class="name-title">
+      <h1 class="name">Abraham L.B.K</h1>
+      <p class="title">Directeur General,<br>Producteur Realisateur</p>
+    </div>
+
+    <h2 class="company">LBK PRODUCTION<br>Company</h2>
+
+    <div class="contact-icons">
+      <button class="icon-btn" aria-label="Call" onclick="callNow()">
+        <i class="fas fa-phone"></i>
+      </button>
+      <button class="icon-btn" aria-label="Message" onclick="sendMessage()">
+        <i class="fas fa-comment-dots"></i>
+      </button>
+      <button class="icon-btn" aria-label="Email" onclick="sendEmail()">
+        <i class="fas fa-envelope"></i>
+      </button>
+    </div>
+
+    <!-- NEW: Add to WhatsApp Contact -->
+    <a 
+      href="https://wa.me/243831700110" 
+      target="_blank" 
+      class="btn btn-primary" 
+      style="text-decoration:none; display:inline-block; margin-bottom:10px;"
+    >
+      <i class="fab fa-whatsapp"></i> ADD TO WHATSAPP CONTACTS
+      <i class="fas fa-share-alt share-icon"></i>
+    </a>
+
+    <button class="btn btn-secondary" onclick="scheduleMeeting()">
+      <i class="far fa-calendar-check"></i> SCHEDULE A MEETING
+      <i class="fas fa-share-alt share-icon"></i>
+    </button>
+
+    <div class="social-icons">
+      <a href="https://linkedin.com" target="_blank" class="social-btn" aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="https://facebook.com" target="_blank" class="social-btn" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="social-btn" aria-label="Twitter">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+      <a href="https://instagram.com" target="_blank" class="social-btn" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://tiktok.com" target="_blank" class="social-btn" aria-label="TikTok">
+        <i class="fab fa-tiktok"></i>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Replace with your real photo URL or base64 string
+    document.getElementById('profilePic').src = "https://via.placeholder.com/180?text=ABRAHAM+L.B.K";
+
+    // Replace with your actual phone number
+    const phoneNumber = "+243831700110"; // ✅ Your real number here
+
+    function callNow() {
+      if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
+        window.location.href = `tel:${phoneNumber}`;
+      } else {
+        alert(`📞 Calling ${phoneNumber}... (On mobile, this will dial automatically)`);
+      }
+      console.log("Call initiated");
+    }
+
+    function sendMessage() {
+      if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
+        window.location.href = `sms:${phoneNumber}`;
+      } else {
+        alert(`💬 Sending message to ${phoneNumber}... (On mobile, opens SMS app)`);
+      }
+      console.log("Message initiated");
+    }
+
+    function sendEmail() {
+      const email = "abraham@lbkproduction.com";
+      window.location.href = `mailto:${email}?subject=Contact%20from%20Digital%20Card&body=Hello%20Abraham,`;
+      console.log("Email opened");
+    }
+
+    // NEW: Add to WhatsApp Contacts
+    function addToWhatsApp() {
+      const whatsappLink = `https://wa.me/${phoneNumber.replace('+', '')}`;
+      window.open(whatsappLink, '_blank');
+      console.log("Opening WhatsApp to add contact");
+    }
+
+    function scheduleMeeting() {
+      const meetingLink = "https://calendly.com/abrahamlbk/30min"; // Replace with your link
+      window.open(meetingLink, '_blank');
+      console.log("Meeting scheduled");
+    }
+
+    // Smooth entrance animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const card = document.querySelector('.card');
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 300);
+
+      // Add subtle glow on hover for entire card
+      card.addEventListener('mouseenter', () => {
+        card.style.boxShadow = '0 12px 48px rgba(139, 0, 0, 0.25)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)';
+      });
+    });
+  </script>
+</body>
+</html>
